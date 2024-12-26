@@ -1,18 +1,20 @@
 import ViewScreen from "@/components/ViewScreen";
 import { Link } from "expo-router";
 import { Button, FlatList, Modal, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DayItem from "@/components/DayItem";
 
 const items = (listOfItems: any[]) => listOfItems.map(item => (
     <DayItem item={item}/>
   ));
+  
+
 
 export default function Day() {
+  const flatListRef: any = useRef(null);
   const [expList, setExpList] = useState([{ id: 1, name: 'Item 1' }]);
 
   const [isModalVisible, setModalVisible] = useState(false);
-
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -20,7 +22,15 @@ export default function Day() {
   const intiateAddItem = () => {
     // toggleModal();
     addItem();
+    
   }
+
+  //when new item added, its state updated in async
+  useEffect(()=>{
+    // highlight the newly added item by ..
+    // ..  scrolling it to top of screen
+    scrollToItem(expList.length);
+  },[expList]);
 
   const addItem = () => {
 
@@ -33,9 +43,17 @@ export default function Day() {
         ]);
   }
 
+  
+  const scrollToItem = (id: any)=>{
+    // To scroll the screen to selected item
+    console.log("id:"+id);
+    // flatListRef.current.scrollToIndex({id:id, aniamted: true})
+  }
+
   return (
     <ViewScreen header='Header Content' footer='Footer Content' isBackNeeded={false} >
       <FlatList
+        ref={flatListRef}
         data={expList}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
