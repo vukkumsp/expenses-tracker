@@ -1,7 +1,7 @@
-import ViewScreen from "@/components/viewScreen";
+import ViewScreen from "@/components/ViewScreen";
 import { Link } from "expo-router";
 import { Text, View } from "react-native";
-import BackButton from "@/components/backButton";
+import BackButton from "@/components/BackButton";
 
 export default function Settings() {
   return (

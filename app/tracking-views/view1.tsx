@@ -1,6 +1,6 @@
 import { Link } from "expo-router";
 import { Text, View } from "react-native";
-import ViewScreen from "@/components/viewScreen";
+import ViewScreen from "@/components/ViewScreen";
 
 export default function View1() {
   return (

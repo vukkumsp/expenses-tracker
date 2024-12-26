@@ -1,6 +1,6 @@
 import { Link } from "expo-router";
 import React, { ReactNode } from "react";
-import BackButton from "@/components/backButton";
+import BackButton from "@/components/BackButton";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 // Define props type
@@ -9,7 +9,7 @@ interface CustomComponentProps {
     children: ReactNode; // ReactNode allows passing any valid React content
     footer: ReactNode;
     isBackNeeded?: boolean;
-  }
+}
 
 const ViewScreen: React.FC<CustomComponentProps> = ({header, children, footer, isBackNeeded=true}) => {
   
@@ -20,10 +20,10 @@ const ViewScreen: React.FC<CustomComponentProps> = ({header, children, footer, i
             {header}
           </Text>
         </View>
-        <ScrollView contentContainerStyle={styles.scrollContent}>
+        <View style={styles.scrollContent}>
           {children}
           {isBackNeeded?<BackButton />:<></>}
-        </ScrollView>
+        </View>
         <View style={styles.footer}>
           <Text style={styles.footerText}>
             {footer}
@@ -37,7 +37,7 @@ export default ViewScreen;
 
 const styles = StyleSheet.create({
     header:{
-        height: 60,
+        height: '10%',
         backgroundColor: '#f8f9fa',
         justifyContent: 'center',
         alignItems: 'center',
@@ -56,11 +56,11 @@ const styles = StyleSheet.create({
         padding: 10,
         borderWidth: 1,
         width: '100%',
-        height: '100%',
+        height: '70%',
         margin: 0
     },
     footer: {
-        height: 60,
+        height: '10%',
         backgroundColor: '#f8f9fa',
         justifyContent: 'center',
         alignItems: 'center',

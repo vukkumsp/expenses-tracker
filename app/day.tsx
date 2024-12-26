@@ -1,26 +1,29 @@
-import TopFloater from "@/components/topFloater";
-import ViewScreen from "@/components/viewScreen";
-import BackButton from "@/components/backButton";
+import ViewScreen from "@/components/ViewScreen";
 import { Link } from "expo-router";
-import { Button, FlatList, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Button, FlatList, Modal, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useState } from "react";
-
-// const items = (listOfItems: any[])=>{
-//     let list = [];
-//     for(let item of listOfItems){
-//         list.push(`<li>${item.name}</li>`);
-//     }
-//     return list;
-// }
+import DayItem from "@/components/DayItem";
 
 const items = (listOfItems: any[]) => listOfItems.map(item => (
-    <Text key={item.id} style={{ margin: 5 }}>{item.name}</Text>
+    <DayItem item={item}/>
   ));
 
 export default function Day() {
   const [expList, setExpList] = useState([{ id: 1, name: 'Item 1' }]);
 
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
+  const intiateAddItem = () => {
+    // toggleModal();
+    addItem();
+  }
+
   const addItem = () => {
+
     setExpList(
         [...expList, 
             { 
@@ -36,13 +39,38 @@ export default function Day() {
         data={expList}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <Text style={{ margin: 5 }}>{item.name}</Text>
+          <DayItem item={item}/>
         )}
       />
-      <Button title='Add' onPress={addItem}></Button>
-      {/* <TopFloater data={{"key1":"value1"}}/> */}
+      <Button title='Add' onPress={intiateAddItem}></Button>
       <Link style={styles.linkStyle} href="./settings">Settings</Link>
       <Link style={styles.linkStyle} href="./tracking-views">Views Home</Link>
+
+      <Modal
+        visible={isModalVisible}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={toggleModal} // Handles the back button on Android
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalText}>This is a popup modal!</Text>
+            <TextInput style={styles.modelInput}></TextInput>
+
+            <View style={styles.modelButtonGroup}>
+              <TouchableOpacity onPress={toggleModal} style={styles.closeButton}>
+                <Text style={styles.closeButtonText}>Add</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity onPress={toggleModal} style={styles.cancelButton}>
+                <Text style={styles.cancelButtonText}>Cancel</Text>
+              </TouchableOpacity>
+            </View>
+
+
+          </View>
+        </View>
+      </Modal>
     </ViewScreen>
   );
 }
@@ -68,6 +96,65 @@ const styles = StyleSheet.create({
   },
   footerText: {
     color: '#333',
+    fontSize: 16,
+  },
+
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    width: '80%',
+    padding: 20,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    alignItems: 'center',
+    elevation: 5, // Adds shadow for Android
+    shadowColor: '#000', // Adds shadow for iOS
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+  },
+  modalText: {
+    fontSize: 18,
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+
+  modelInput: {
+    borderWidth: 1,
+    borderRadius:5
+  },
+
+  modelButtonGroup:{
+    display: 'flex',
+    flexDirection: 'row',
+
+  },
+
+  closeButton: {
+    margin: 5,
+    backgroundColor: '#2196F3',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  closeButtonText: {
+    color: '#fff',
+    fontSize: 16,
+  },
+
+  cancelButton: {
+    margin: 5,
+    backgroundColor: 'red',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  cancelButtonText: {
+    color: '#fff',
     fontSize: 16,
   },
 });
