@@ -8,6 +8,7 @@ const items = (listOfItems: any[]) => listOfItems.map(item => (
     <DayItem item={item}/>
   ));
   
+const ListSeparator = ()=>(<Text>-------</Text>);
 const ListHeader = ()=>(<Text>Items Heading</Text>);
 const ListFooter = ()=>(<Text>Items Footer</Text>)
 
@@ -56,6 +57,7 @@ export default function Day() {
       <FlatList
         ListHeaderComponent={ListHeader}
         ListFooterComponent={ListFooter}
+        ItemSeparatorComponent={ListSeparator}
         ref={flatListRef}
         data={expList}
         keyExtractor={(item) => item.id.toString()}
