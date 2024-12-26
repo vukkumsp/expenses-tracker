@@ -8,7 +8,8 @@ const items = (listOfItems: any[]) => listOfItems.map(item => (
     <DayItem item={item}/>
   ));
   
-
+const ListHeader = ()=>(<Text>Items Heading</Text>);
+const ListFooter = ()=>(<Text>Items Footer</Text>)
 
 export default function Day() {
   const flatListRef: any = useRef(null);
@@ -53,6 +54,8 @@ export default function Day() {
   return (
     <ViewScreen header='Header Content' footer='Footer Content' isBackNeeded={false} >
       <FlatList
+        ListHeaderComponent={ListHeader}
+        ListFooterComponent={ListFooter}
         ref={flatListRef}
         data={expList}
         keyExtractor={(item) => item.id.toString()}
