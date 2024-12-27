@@ -4,7 +4,7 @@ import { Button, StyleSheet, Text, View } from "react-native";
 
 interface Item{
     name: string;
-    id: number;
+    id: string;
 }
 
 interface CustomComponentProps {

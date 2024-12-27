@@ -14,7 +14,9 @@ const ListFooter = ()=>(<Text>Items Footer</Text>)
 
 export default function Day() {
   const flatListRef: any = useRef(null);
-  const [expList, setExpList] = useState([{ id: 1, name: 'Item 1' }]);
+  const [expList, setExpList] = useState([{ id: '1', name: 'Item 1' }]);
+  const [itemName, setItemName] = useState('');
+  const [itemDescription, setItemDescription] = useState('');
 
   const [isModalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
@@ -22,8 +24,8 @@ export default function Day() {
   };
 
   const intiateAddItem = () => {
-    // toggleModal();
-    addItem();
+    toggleModal();
+    // addItem();
     
   }
 
@@ -35,14 +37,19 @@ export default function Day() {
   },[expList]);
 
   const addItem = () => {
-
-    setExpList(
-        [...expList, 
-            { 
-                id: expList.length + 1, 
-                name: `Item ${expList.length + 1}` 
-            }
-        ]);
+    if(itemName && itemName.length>0 
+        && itemDescription && itemDescription.length>0){
+          setExpList(
+            [...expList, 
+                { 
+                    id: itemName, 
+                    name: itemDescription 
+                }
+            ]);
+      setItemName('');//clear state
+      setItemDescription('');//clear state
+      toggleModal();
+    }
   }
 
   
@@ -77,11 +84,22 @@ export default function Day() {
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalText}>This is a popup modal!</Text>
-            <TextInput style={styles.modelInput}></TextInput>
+            <Text style={styles.modalText}>Enter Item Details...</Text>
+            <TextInput 
+              style={styles.modelInput}
+              placeholder="Enter Item Name"
+              value={itemName}
+              onChangeText={setItemName}
+            />
+            <TextInput 
+              style={styles.modelInput}
+              placeholder="Enter Description"
+              value={itemDescription}
+              onChangeText={setItemDescription}
+            />
 
             <View style={styles.modelButtonGroup}>
-              <TouchableOpacity onPress={toggleModal} style={styles.closeButton}>
+              <TouchableOpacity onPress={addItem} style={styles.closeButton}>
                 <Text style={styles.closeButtonText}>Add</Text>
               </TouchableOpacity>
 
