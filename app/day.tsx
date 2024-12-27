@@ -165,14 +165,21 @@ const styles = StyleSheet.create({
   },
 
   modelInput: {
+    borderColor: 'lightgray',
     borderWidth: 1,
-    borderRadius:5
+    borderRadius:5,
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 1,
+    paddingRight: 1,
+    margin: 5,
+    
   },
 
   modelButtonGroup:{
-    display: 'flex',
+    // display: 'flex',//flex is by default
     flexDirection: 'row',
-
+    justifyContent: 'space-between'
   },
 
   closeButton: {
