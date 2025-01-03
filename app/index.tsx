@@ -1,4 +1,4 @@
-import Day from "./day";
+import Day from "./Day";
 
 export default function Index() {
 
