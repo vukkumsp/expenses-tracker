@@ -62,6 +62,7 @@ export default function Day() {
   return (
     <ViewScreen header='Header Content' footer='Footer Content' isBackNeeded={false} >
       <FlatList
+        keyboardDismissMode="on-drag"
         ListHeaderComponent={ListHeader}
         ListFooterComponent={ListFooter}
         ItemSeparatorComponent={ListSeparator}
@@ -96,6 +97,7 @@ export default function Day() {
               placeholder="Enter Description"
               value={itemDescription}
               onChangeText={setItemDescription}
+              multiline={true}
             />
 
             <View style={styles.modelButtonGroup}>
@@ -173,7 +175,8 @@ const styles = StyleSheet.create({
     paddingLeft: 1,
     paddingRight: 1,
     margin: 5,
-    
+    width: '100%',
+    textAlign: 'center'
   },
 
   modelButtonGroup:{
