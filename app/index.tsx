@@ -24,7 +24,7 @@ export default function Index() {
   useEffect(()=>{
     // clearTable(conn, "expenses");
     initializeDatabase(conn);
-    testData(conn);
+    // testData(conn);
     // setIsDataAvailable(true);
     store.dispatch(toggle(true));
   },[]);
