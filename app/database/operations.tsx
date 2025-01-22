@@ -54,10 +54,10 @@ export const readExpensesGivenDate: (any|Expense[]) = (conn: SQLiteDatabase, dat
 }
 
 export const addExpense = (conn: SQLiteDatabase, newExpense: Expense) => {
-    conn.execSync(`
-        INSERT INTO expenses (name, description, amount, cd, date, month, year) VALUES
-            ('TEST1', 'test desc1', 13, 'CREDIT', 18, 0, 2025);
-        `)
+    // conn.execSync(`
+    //     INSERT INTO expenses (name, description, amount, cd, date, month, year) VALUES
+    //         ('TEST1', 'test desc1', 13, 'CREDIT', 18, 0, 2025);
+    //     `)
     conn.execSync(`
         INSERT INTO expenses (
             name,

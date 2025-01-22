@@ -38,7 +38,7 @@ export default function Day() {
 
   const flatListRef: any = useRef(null);
   const [expList, setExpList] = useState(
-    [new Expense(1, "Dummy Expense", "Dummy desc", 0, CD.CREDIT, selectedDate.getDate(), selectedDate.getMonth(), selectedDate.getFullYear())]
+    [readExpensesGivenDate(conn, selectedDate)]
     
   );
 
@@ -61,7 +61,7 @@ export default function Day() {
     setExpList(readExpensesGivenDate(conn, selectedDate));
     // highlight the newly added item by ..
     // ..  scrolling it to top of screen
-    // scrollToItem(expList.length);
+    scrollToItem(expList.length);
     console.log("inside useEffect")
 
   },[]);
@@ -78,9 +78,9 @@ export default function Day() {
       
       addExpense(conn, newExpense);
 
-      setItemName('');//clear state
-      setItemDescription('');//clear state
-      setExpense(0);
+      // setItemName('');//clear state
+      // setItemDescription('');//clear state
+      // setExpense(0);
       toggleModal();
 
       // addExpense();
@@ -91,7 +91,7 @@ export default function Day() {
   const scrollToItem = (id: any)=>{
     // To scroll the screen to selected item
     console.log("id:"+id);
-    // flatListRef.current.scrollToIndex({id:id, aniamted: true})
+    // flatListRef.current.scrollToIndex({id:id-1, animated: true})
   }
 
   
@@ -128,7 +128,7 @@ export default function Day() {
         ref={flatListRef}
         data={expList}
         // data={expenses.sorted("createdAt")}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <DayItem item={item}/>
         )}
