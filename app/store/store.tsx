@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import selectedDateReducer from "@/app/store/selectedDateSlice";
+import isDataAvailableReducer from "@/app/store/isDataAvailableSlice";
 
 const store = configureStore({
     reducer: {
-        selectedDate: selectedDateReducer
+        selectedDate: selectedDateReducer,
+        isDataAvailable: isDataAvailableReducer
     },
 });
 

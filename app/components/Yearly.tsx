@@ -4,6 +4,7 @@ import { LeftArrow, RightArrow } from "@/app/utils/IconComponents";
 import { useRouter } from "expo-router";
 import { View, StyleSheet, Text, Pressable } from "react-native"
 import { useDispatch, useSelector } from "react-redux";
+import Routes from "../utils/Routes";
 
 interface CustomComponentProps {
     year: number;
@@ -12,24 +13,23 @@ interface CustomComponentProps {
 const Yearly: React.FC<CustomComponentProps> = ({year}) => {
     const router = useRouter();
 
-    const today = useSelector((state: RootState) => state.selectedDate.date);
+    const today = useSelector((state: RootState) => new Date(state.selectedDate.date));
     const dispatch = useDispatch();
 
     const increaseYear = () => {
         today.setFullYear(today.getFullYear() + 1);
-        store.dispatch(changeDate(JSON.stringify(today)));
+        store.dispatch(changeDate(today));
     }
 
     const decreaseYear = () => {
         today.setFullYear(today.getFullYear() - 1);
-        store.dispatch(changeDate(JSON.stringify(today)));
+        store.dispatch(changeDate(today));
     }
 
     const onPressMonth = (month: number) => {
         let updatedDate = new Date(today.getFullYear(), month, today.getDate());
-        let updatedDateString = JSON.stringify(updatedDate);
-        store.dispatch(changeDate(updatedDateString));
-        router.push("./Month");
+        store.dispatch(changeDate(updatedDate));
+        router.push(Routes.MONTH);
     }
 
     return (

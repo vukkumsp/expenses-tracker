@@ -2,10 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const selectedDateSlice = createSlice({
     name: 'selectedDate',
-    initialState: {date: new Date()},
+    initialState: {date: new Date().toISOString()},
     reducers: {
         changeDate: (state, action) => {
-            state.date = new Date(JSON.parse(action.payload));
+            if(action.payload!==state) //memoization if same value is being saved
+                state.date = new Date(action.payload).toISOString();
+            return state; //reducers have to return valid state
         }
     }
 });

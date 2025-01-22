@@ -1,5 +1,6 @@
 import { useNavigation } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
+import Expense from "../database/Expense";
 
 export enum CD {
     CREDIT='CREDIT', DEBIT='DEBIT'
@@ -22,7 +23,7 @@ export class Item{
 }
 
 interface CustomComponentProps {
-    item: Item;
+    item: Expense;
 }
 
 const DayItem: React.FC<CustomComponentProps> = ({item}) => {
@@ -39,7 +40,7 @@ const DayItem: React.FC<CustomComponentProps> = ({item}) => {
         </View>
         <Text style={item.cd==CD.CREDIT?styles.creditExpense:styles.debitExpense}>
             {item.cd==CD.CREDIT?'+':'-'}
-            {item.expense}
+            {item.amount}
         </Text>
       </View>
       

@@ -1,8 +1,8 @@
 enum Routes {
-    DAY = "./views/Day",
-    MONTH = "./views/Month",
-    YEAR = "./views/Year",
-    PROFILE = "./views/Profile"
+    DAY = "./Day",
+    MONTH = "./Month",
+    YEAR = "./Year",
+    PROFILE = "./Profile"
 }
 
 export default Routes;

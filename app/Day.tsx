@@ -1,20 +1,25 @@
 import ViewScreen from "@/app/components/ViewScreen";
 import { Button, FlatList, Modal, Pressable, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useEffect, useRef, useState } from "react";
+import Expense from "@/app/database/Expense";
 import DayItem, { CD, Item } from "@/app/components/DayItem";
 import ItemModal from "@/app/components/ItemModal";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
 import { getMonth, getWeekDay, isEqualToDate } from "@/app/utils/DateUtils";
 import { AddIcon } from "@/app/utils/IconComponents";
+import * as SQLite from "expo-sqlite";
+import { addExpense, FLAG, getTotalExpense, readAllData, readExpensesGivenDate } from "./database/operations";
 
 export default function Day() {
   /* Redux Store */
-  const selectedDate = useSelector((state: RootState) => state.selectedDate.date);
+  const selectedDate = useSelector((state: RootState) => new Date(state.selectedDate.date));
   const dispatch = useDispatch();
 
-  /* Realm Database */
-  // const realm = useRealm();
+  /* SQLite Database */
+  const conn = SQLite.openDatabaseSync("test.db");
+
+
   // const expenses = useQuery('Expense');
   // const [newExpense, setNewExpense] = useState({description: '', amount: ''});
 
@@ -33,7 +38,8 @@ export default function Day() {
 
   const flatListRef: any = useRef(null);
   const [expList, setExpList] = useState(
-    [new Item('1', 'Dummy Item Name', 'Dummy Item Description', CD.CREDIT, 0)]
+    [new Expense(1, "Dummy Expense", "Dummy desc", 0, CD.CREDIT, selectedDate.getDate(), selectedDate.getMonth(), selectedDate.getFullYear())]
+    
   );
 
   const [itemName, setItemName] = useState('');
@@ -52,20 +58,26 @@ export default function Day() {
 
   //when new item added, its state updated in async
   useEffect(()=>{
+    setExpList(readExpensesGivenDate(conn, selectedDate));
     // highlight the newly added item by ..
     // ..  scrolling it to top of screen
-    scrollToItem(expList.length);
+    // scrollToItem(expList.length);
+    console.log("inside useEffect")
 
-  },[expList]);
+  },[]);
 
   const addItem = () => {
+    let newExpense = new Expense(1, itemName, itemDescription, expense, CD.CREDIT, selectedDate.getDate(), selectedDate.getMonth(), selectedDate.getFullYear());
     if(itemName && itemName.length>0 
         && itemDescription && itemDescription.length>0){
           setExpList(
             [...expList, 
-                new Item(itemName, itemName, itemDescription, CD.DEBIT, expense)
+              newExpense
+                // new Item(itemName, itemName, itemDescription, CD.DEBIT, expense)
             ]);
       
+      addExpense(conn, newExpense);
+
       setItemName('');//clear state
       setItemDescription('');//clear state
       setExpense(0);
@@ -82,14 +94,16 @@ export default function Day() {
     // flatListRef.current.scrollToIndex({id:id, aniamted: true})
   }
 
-  const totalExpenses = () => {
-    let sum = 0;
-    expList.forEach(item => {
-      if(item.cd==CD.CREDIT) sum = sum + item.expense;
-      else if(item.cd==CD.DEBIT) sum = sum - item.expense;
-    });
-    return sum;
-  }
+  
+
+  // const totalExpenses = () => {
+  //   let sum = 0;
+  //   expList.forEach(item => {
+  //     if(item.cd==CD.CREDIT) sum = sum + item.expense;
+  //     else if(item.cd==CD.DEBIT) sum = sum - item.expense;
+  //   });
+  //   return sum;
+  // }
 
   const expensesLabel = () => {
     let today = new Date();
@@ -104,8 +118,10 @@ export default function Day() {
     </Text>);
   }
 
+  let dayTotal = getTotalExpense(conn, selectedDate, FLAG.DATE);
+
   return (
-    <ViewScreen header="Daily" footer={'Total is '+totalExpenses()} isBackNeeded={true} >
+    <ViewScreen header="Daily" footer={'Total is ₹'+dayTotal} isBackNeeded={true} >
       <FlatList
         ListHeaderComponent={expensesLabel}
         keyboardDismissMode="on-drag"
