@@ -1,6 +1,7 @@
 import { useNavigation } from "expo-router";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import Expense from "../database/Expense";
+import { DeleteIcon, EditIcon } from "../utils/IconComponents";
 
 export enum CD {
     CREDIT='CREDIT', DEBIT='DEBIT'
@@ -30,6 +31,7 @@ const DayItem: React.FC<CustomComponentProps> = ({item}) => {
     const navigation = useNavigation();
   return (
       <View key={item.id} style={styles.itemView}>
+      {/* <View > */}
         <View>
             <Text style={{fontSize: 20}}>
                 {item.name}
@@ -38,11 +40,21 @@ const DayItem: React.FC<CustomComponentProps> = ({item}) => {
                 {item.description}
             </Text>
         </View>
-        <Text style={item.cd==CD.CREDIT?styles.creditExpense:styles.debitExpense}>
-            {item.cd==CD.CREDIT?'+':'-'}
-            {item.amount}
-        </Text>
+        <View style={styles.amtEditDelete}>
+            <Text style={item.cd==CD.CREDIT?styles.creditExpense:styles.debitExpense}>
+                {item.cd==CD.CREDIT?'+':'-'}
+                {item.amount}
+            </Text>
+            <Pressable>
+                <EditIcon size={30}/>
+            </Pressable>
+            <Pressable>
+                <DeleteIcon size={30}/>
+            </Pressable>
+        </View>
+
       </View>
+
       
     );
 }
@@ -53,22 +65,29 @@ const styles = StyleSheet.create({
     itemView:{
         display: 'flex',
         flexDirection: 'row',
-        borderWidth: 1,
+        justifyContent: 'space-between',
+        // borderWidth: 1,
         padding: 10,
         margin: 5,
-        borderRadius: 5,
+        borderRadius: 12,
+        backgroundColor: '#f2f2f2',
     },
     expense:{
         alignSelf: 'flex-end',
     },
     creditExpense:{
-        color: 'green',
+        color: '#33ff66',
         alignSelf: 'flex-end',
-        fontSize: 15,
+        fontSize: 25,
     },
     debitExpense:{
-        color: 'red',
+        color: '#fc5353',
         alignSelf: 'flex-end',
-        fontSize: 15,
-    }
+        fontSize: 25,
+    },
+    amtEditDelete: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 10
+    },
 });

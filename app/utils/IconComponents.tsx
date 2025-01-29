@@ -5,7 +5,8 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 interface IconProps {
-    size: number;
+    size?: number;
+    color?: string;
 }
 
 const defaultIconSize = 48;
@@ -25,15 +26,14 @@ export const BackArrow = () => {
     return <AntDesign name="back" size={defaultIconSize} color="black" />
 }
 
-export const AddIcon = () => {
-    // return <View><Text>➕</Text></View>
-    // return <MaterialIcons name="add-circle-outline" size={24} color="black" />
-    return <AntDesign name="plus" size={defaultIconSize} color="black" />
+export const AddIcon: React.FC<IconProps> = ({size=defaultIconSize, color='black'})  => {
+    // (size<0)?size=defaultIconSize:size;
+    return <AntDesign name="plus" size={size} color={color} />
 }
 
 
-export const ProfileIcon: React.FC<IconProps> = ({size}) => {
-    (size<0)?size=defaultIconSize:size;
+export const ProfileIcon: React.FC<IconProps> = ({size=defaultIconSize}) => {
+    // (size<0)?size=defaultIconSize:size;
     // return <View><Text style={{fontSize: size}}>👤</Text></View>
     // return <AntDesign name="profile" size={defaultIconSize} color="black" />
     if(true) //TODO: Once Sign In and Cloud Sync feature is ready, make this flag false to change the logo
@@ -42,8 +42,28 @@ export const ProfileIcon: React.FC<IconProps> = ({size}) => {
         return <MaterialIcons name="person" size={size} color="black" />
 }
 
-export const HomeIcon: React.FC<IconProps> = ({size})  => {
-    (size<0)?size=defaultIconSize:size;
+export const HomeIcon: React.FC<IconProps> = ({size=defaultIconSize})  => {
+    // (size<0)?size=defaultIconSize:size;
     // return <View><Text style={{fontSize: size}}>🏠︎</Text></View>
     return <AntDesign name="home" size={size} color="black" />
+}
+
+export const EditIcon: React.FC<IconProps> = ({size=defaultIconSize})  => {
+    // (size<0)?size=defaultIconSize:size;
+    return <MaterialIcons name="edit" size={size} color="black" />
+}
+
+export const DeleteIcon: React.FC<IconProps> = ({size=defaultIconSize})  => {
+    // (size<0)?size=defaultIconSize:size;
+    return <AntDesign name="delete" size={size} color="black" />
+}
+
+export const ClearAllIcon: React.FC<IconProps> = ({size=defaultIconSize, color='black'})  => {
+    // (size<0)?size=defaultIconSize:size;
+    return <MaterialIcons name="clear-all" size={size} color={color} />
+}
+
+export const ClearIcon: React.FC<IconProps> = ({size=defaultIconSize, color='black'})  => {
+    // (size<0)?size=defaultIconSize:size;
+    return <MaterialIcons name="clear" size={size} color={color} />
 }

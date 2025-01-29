@@ -22,7 +22,7 @@ const ViewScreen: React.FC<CustomComponentProps> = ({header, children, footer, i
             {header}
           </Text>
           <Link href={"./Profile"}>
-            <ProfileIcon size={-1}/>
+            <ProfileIcon/>
           </Link>
         </View>
         <View style={styles.scrollContent}>

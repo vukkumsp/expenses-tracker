@@ -3,6 +3,7 @@ import { CD } from "./DayItem";
 import React, { useEffect, useMemo, useState } from 'react';
 import RadioGroup from 'react-native-radio-buttons-group';
 import Expense from "../database/Expense";
+import { AddIcon, ClearAllIcon, ClearIcon } from "../utils/IconComponents";
 
 interface CustomComponentProps {
     // itemName: string;
@@ -52,7 +53,14 @@ const ExpenseModal: React.FC<CustomComponentProps> = (
     if(expense==null){
       expense = new Expense(0, expenseName, expenseDescription, expenseAmount, expenseCD, date.getDate(), date.getMonth(), date.getFullYear());
     }
-  },[expenseName, expenseDescription, expenseAmount, expenseCD])
+  },[expenseName, expenseDescription, expenseAmount, expenseCD]);
+
+  const clearAllStates = () => {
+    setExpenseName('');
+    setExpenseDescription('');
+    setExpenseCD('');
+    setExpenseAmount('');
+  }
 
     return (
         <Modal
@@ -97,12 +105,19 @@ const ExpenseModal: React.FC<CustomComponentProps> = (
                     />
         {/* onPress={()=>{addExpense(expense)}} */}
                     <View style={styles.modelButtonGroup}>
-                      <Pressable onPress={()=>{addExpense(expense)}} style={styles.closeButton}>
-                        <Text style={styles.closeButtonText}>Add</Text>
+                      <Pressable onPress={()=>{addExpense(expense);clearAllStates();}} style={styles.closeButton}>
+                        {/* <Text style={styles.closeButtonText}>Add</Text> */}
+                        <AddIcon size={30} color='white'/>
                       </Pressable>
         
-                      <Pressable onPress={toggleShowModal} style={styles.cancelButton}>
-                        <Text style={styles.cancelButtonText}>Cancel</Text>
+                      <Pressable onPress={()=>{toggleShowModal();clearAllStates();}} style={styles.cancelButton}>
+                        {/* <Text style={styles.cancelButtonText}>Cancel</Text> */}
+                        <ClearIcon size={30} color='white'/>
+                      </Pressable>
+                
+                      <Pressable onPress={clearAllStates} style={styles.clearButton}>
+                        {/* <Text style={styles.clearButtonText}>Clear</Text> */}
+                        <ClearAllIcon size={30} color='white'/>
                       </Pressable>
                     </View>
         
@@ -162,7 +177,7 @@ const styles = StyleSheet.create({
       },
       closeButton: {
         margin: 5,
-        backgroundColor: '#2196F3',
+        backgroundColor: '#4dbd74',
         paddingVertical: 10,
         paddingHorizontal: 20,
         borderRadius: 5,
@@ -174,12 +189,24 @@ const styles = StyleSheet.create({
     
       cancelButton: {
         margin: 5,
-        backgroundColor: 'red',
+        backgroundColor: '#db5e5a',
         paddingVertical: 10,
         paddingHorizontal: 20,
         borderRadius: 5,
       },
       cancelButtonText: {
+        color: '#fff',
+        fontSize: 16,
+      },
+
+      clearButton: {
+        margin: 5,
+        backgroundColor: '#3b3b3b',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5,
+      },
+      clearButtonText: {
         color: '#fff',
         fontSize: 16,
       },

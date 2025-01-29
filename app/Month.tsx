@@ -60,6 +60,16 @@ export default function Month() {
             textMonthFontSize: 30,  // Adjust font size of month title
             // textMonthFontWeight: 'bold', // (Optional) Make it bold
             // monthTextColor: 'blue', // (Optional) Change color
+            calendarBackground: '#f2f2f2',
+            stylesheet:{
+              calendar:{
+                main:{
+                  borderRadius: 12 // not working
+                  //TODO: try borderRadius to 12 for calendar in Monthly
+                }
+              }
+            },
+            contentStyle: styles.contentStyle
           }}
           current={selectedDate.toDateString()}
           renderArrow={customArrows}
@@ -73,5 +83,10 @@ const styles = StyleSheet.create({
     header: {
       fontSize: 20,
       color: 'red'
+    },
+    contentStyle:{
+      borderRadius: 100,
+      color: 'red',
+      backgroundColor: 'green',
     },
 })

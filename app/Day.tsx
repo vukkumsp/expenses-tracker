@@ -139,7 +139,7 @@ export default function Day() {
         <Pressable 
           onPress={intiateAddItem}
           hitSlop={10}>
-          <AddIcon />
+          <AddIcon/>
         </Pressable>
       </View>
 

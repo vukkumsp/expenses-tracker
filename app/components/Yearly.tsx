@@ -48,42 +48,42 @@ const Yearly: React.FC<CustomComponentProps> = ({year}) => {
 
         <View style={styles.whole}>
             <View>
-                <Pressable style={styles.month} hitSlop={10} onPress={()=>onPressMonth(0)}>
+                <Pressable style={styles.month} onPress={()=>onPressMonth(0)}>
                     <Text style={styles.monthText}>January</Text>
                 </Pressable>
-                <Pressable style={styles.month} hitSlop={10} onPress={()=>onPressMonth(1)}>
+                <Pressable style={styles.month} onPress={()=>onPressMonth(1)}>
                     <Text style={styles.monthText}>February</Text>
                 </Pressable>
-                <Pressable style={styles.month} hitSlop={10} onPress={()=>onPressMonth(2)}>
+                <Pressable style={styles.month} onPress={()=>onPressMonth(2)}>
                     <Text style={styles.monthText}>March</Text>
                 </Pressable>
-                <Pressable style={styles.month} hitSlop={10} onPress={()=>onPressMonth(3)}>
+                <Pressable style={styles.month} onPress={()=>onPressMonth(3)}>
                     <Text style={styles.monthText}>April</Text>
                 </Pressable>
-                <Pressable style={styles.month} hitSlop={10} onPress={()=>onPressMonth(4)}>
+                <Pressable style={styles.month} onPress={()=>onPressMonth(4)}>
                     <Text style={styles.monthText}>May</Text>
                 </Pressable>
-                <Pressable style={styles.month} hitSlop={10} onPress={()=>onPressMonth(5)}>
+                <Pressable style={styles.month} onPress={()=>onPressMonth(5)}>
                     <Text style={styles.monthText}>June</Text>
                 </Pressable>
             </View>
             <View>
-                <Pressable style={styles.month} hitSlop={10} onPress={()=>onPressMonth(6)}>
+                <Pressable style={styles.month} onPress={()=>onPressMonth(6)}>
                     <Text style={styles.monthText}>July</Text>
                 </Pressable>
-                <Pressable style={styles.month} hitSlop={10} onPress={()=>onPressMonth(7)}>
+                <Pressable style={styles.month} onPress={()=>onPressMonth(7)}>
                     <Text style={styles.monthText}>August</Text>
                 </Pressable>
-                <Pressable style={styles.month} hitSlop={10} onPress={()=>onPressMonth(8)}>
+                <Pressable style={styles.month} onPress={()=>onPressMonth(8)}>
                     <Text style={styles.monthText}>September</Text>
                 </Pressable>
-                <Pressable style={styles.month} hitSlop={10} onPress={()=>onPressMonth(9)}>
+                <Pressable style={styles.month} onPress={()=>onPressMonth(9)}>
                     <Text style={styles.monthText}>October</Text>
                 </Pressable>
-                <Pressable style={styles.month} hitSlop={10} onPress={()=>onPressMonth(10)}>
+                <Pressable style={styles.month} onPress={()=>onPressMonth(10)}>
                     <Text style={styles.monthText}>November</Text>
                 </Pressable>
-                <Pressable style={styles.month} hitSlop={10} onPress={()=>onPressMonth(11)}>
+                <Pressable style={styles.month} onPress={()=>onPressMonth(11)}>
                     <Text style={styles.monthText}>December</Text>
                 </Pressable>
             </View>
@@ -115,20 +115,23 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        gap: 5,
+        gap: 2,
         paddingLeft: 15,
         paddingRight: 15,
     },
     month:{
         padding: 25,
-        paddingLeft: 35,
-        paddingRight: 35,
-        borderWidth: 1,
-        borderRadius: 5,
-        borderColor: 'gray',
+        // paddingLeft: 35,
+        // paddingRight: 35,
+        borderWidth: 0,
+        borderRadius: 12, 
+        // borderColor: 'transparent',
+        backgroundColor: '#f2f2f2',
         marginBottom: 5,
     },
     monthText: {
-        fontSize: 25
+        fontSize: 25,
+        width: 'auto',
+        textAlign: 'center'
     }
 })
