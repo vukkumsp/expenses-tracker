@@ -4,7 +4,7 @@ import { Link } from "expo-router";
 const HomeButton = () => {
   return (
         <Link href={"./Day"}>
-            <HomeIcon size={20}/>
+            <HomeIcon size={-1}/>
         </Link>
     );
 }

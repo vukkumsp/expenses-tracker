@@ -1,6 +1,6 @@
 
 import ViewScreen from "@/app/components/ViewScreen";
-import { Text } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import store, { RootState } from "@/app/store/store";
 import { useRouter } from "expo-router";
@@ -56,6 +56,11 @@ export default function Month() {
   return (
       <ViewScreen header="Monthly" footer={'Monthly Total is ₹'+monthTotal}>
         <Calendar
+          theme={{
+            textMonthFontSize: 30,  // Adjust font size of month title
+            // textMonthFontWeight: 'bold', // (Optional) Make it bold
+            // monthTextColor: 'blue', // (Optional) Change color
+          }}
           current={selectedDate.toDateString()}
           renderArrow={customArrows}
           onDayPress={onTheDayPress}
@@ -63,3 +68,10 @@ export default function Month() {
         />
       </ViewScreen>);
 }
+
+const styles = StyleSheet.create({
+    header: {
+      fontSize: 20,
+      color: 'red'
+    },
+})

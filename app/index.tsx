@@ -21,15 +21,15 @@ export default function Index() {
 
   const isDataAvailable = useSelector((state: RootState) => state.isDataAvailable);
 
-  useEffect(()=>{
-    // clearTable(conn, "expenses");
-    initializeDatabase(conn);
-    // testData(conn);
-    // setIsDataAvailable(true);
-    store.dispatch(toggle(true));
-  },[]);
-  // initializeDatabase(conn);
-  // store.dispatch(toggle(true));
+  // useEffect(()=>{
+  //   // clearTable(conn, "expenses");
+  //   initializeDatabase(conn);
+  //   // testData(conn);
+  //   // setIsDataAvailable(true);
+  //   store.dispatch(toggle(true));
+  // },[]);
+  initializeDatabase(conn);
+  store.dispatch(toggle(true));
   return (
     
     <Year />

@@ -1,29 +1,58 @@
 import { Modal, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { CD } from "./DayItem";
+import React, { useEffect, useMemo, useState } from 'react';
+import RadioGroup from 'react-native-radio-buttons-group';
+import Expense from "../database/Expense";
 
 interface CustomComponentProps {
-    itemName: string;
-    setItemName: any;
-    itemDescription: string;
-    setItemDescription: any;
-    creditOrDebit: CD;
-    setCreditOrDebit: any;
-    expense: number;
+    // itemName: string;
+    // setItemName: any;
+    // itemDescription: string;
+    // setItemDescription: any;
+    // creditOrDebit: CD;
+    // setCreditOrDebit: any;
+
+    expense: Expense|null;
+    date: Date;
     setExpense: any;
 
-    addItem: any;
+    addExpense: any;
     showModal: boolean;
     toggleShowModal: any;
 }
 
-const ItemModal: React.FC<CustomComponentProps> = (
-    {itemName, setItemName, 
-    itemDescription, setItemDescription,
-    creditOrDebit, setCreditOrDebit,
-    expense, setExpense,
-    addItem, 
-    showModal, toggleShowModal}
+const ExpenseModal: React.FC<CustomComponentProps> = (
+    {
+    // itemName, setItemName, 
+    // itemDescription, setItemDescription,
+    // creditOrDebit, setCreditOrDebit,
+    expense, date, setExpense,
+    addExpense, showModal, toggleShowModal}
 ) => {
+
+  const [expenseName, setExpenseName] = useState('');
+  const [expenseDescription, setExpenseDescription] = useState('');
+  const [expenseAmount, setExpenseAmount] = useState('');
+
+  const radioButtons = useMemo(() => ([
+    {
+        id: 'CREDIT', // acts as primary key, should be unique and non-empty string
+        label: 'Credit',
+        value: 'Credit'
+    },
+    {
+        id: 'DEBIT',
+        label: 'Debit',
+        value: 'Debit'
+    }
+  ]), []);
+  const [expenseCD, setExpenseCD] = useState(CD.CREDIT.toString()); //CREDIT is default value
+
+  useEffect(()=>{
+    if(expense==null){
+      expense = new Expense(0, expenseName, expenseDescription, expenseAmount, expenseCD, date.getDate(), date.getMonth(), date.getFullYear());
+    }
+  },[expenseName, expenseDescription, expenseAmount, expenseCD])
 
     return (
         <Modal
@@ -34,29 +63,41 @@ const ItemModal: React.FC<CustomComponentProps> = (
               >
                 <View style={styles.modalOverlay}>
                   <View style={styles.modalContent}>
-                    <Text style={styles.modalText}>Enter Item Details...</Text>
+                    <Text style={styles.modalText}>Enter Expense Details...</Text>
                     <TextInput 
                       style={styles.modelInput}
-                      placeholder="Enter Item Name"
-                      value={itemName}
-                      onChangeText={setItemName}
+                      placeholder="Enter Expense Name"
+                      value={expenseName}
+                      onChangeText={setExpenseName}
                     />
                     <TextInput 
                       style={styles.modelInput}
-                      placeholder="Enter Description"
-                      value={itemDescription}
-                      onChangeText={setItemDescription}
+                      placeholder="Enter Expense Description"
+                      value={expenseDescription}
+                      onChangeText={setExpenseDescription}
                       multiline={true}
                     />
+                    <View style={styles.modelRadioButtonGroup}>
+                      <Text>
+                        Select the Expense Type
+                      </Text>
+                      <RadioGroup 
+                        radioButtons={radioButtons} 
+                        onPress={setExpenseCD}
+                        selectedId={expenseCD}
+                        layout="row"                
+                      />
+                    </View>
+
                     <TextInput 
                       style={styles.modelInput}
-                      placeholder="Enter expense amount"
-                      value={expense.toString()}
-                      onChangeText={setExpense}
+                      placeholder="Enter Expense Amount"
+                      value={expenseAmount}
+                      onChangeText={setExpenseAmount}
                     />
-        
+        {/* onPress={()=>{addExpense(expense)}} */}
                     <View style={styles.modelButtonGroup}>
-                      <Pressable onPress={addItem} style={styles.closeButton}>
+                      <Pressable onPress={()=>{addExpense(expense)}} style={styles.closeButton}>
                         <Text style={styles.closeButtonText}>Add</Text>
                       </Pressable>
         
@@ -72,7 +113,7 @@ const ItemModal: React.FC<CustomComponentProps> = (
     );
 }
 
-export default ItemModal;
+export default ExpenseModal;
 
 const styles = StyleSheet.create({
 
@@ -110,15 +151,15 @@ const styles = StyleSheet.create({
         paddingRight: 1,
         margin: 5,
         width: '100%',
-        textAlign: 'center'
+        textAlign: 'left'
       },
-    
+      modelRadioButtonGroup:{
+      },
       modelButtonGroup:{
         // display: 'flex',//flex is by default
         flexDirection: 'row',
         justifyContent: 'space-between'
       },
-    
       closeButton: {
         margin: 5,
         backgroundColor: '#2196F3',

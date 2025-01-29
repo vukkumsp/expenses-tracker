@@ -10,13 +10,11 @@ const Profile = () => {
                 <Text style={{fontSize:50}}>
                     Guest
                 </Text>
-                <Button title="Sign In with Google">
+                <Button title="Sign In" disabled>
                 </Button>
-                <Text>Sign In with Google to Sync with GDrive</Text>
+                <Text style={styles.message}>Sync with Cloud Option is Coming Soon</Text>
             </View>
         </ViewScreen>);
-
-
 }
 
 export default Profile;
@@ -24,5 +22,10 @@ export default Profile;
 const styles = StyleSheet.create({
     whole: {
         alignItems: 'center',
+    },
+    message: {
+        fontSize: 20,
+        padding: 20,
+        paddingTop: 50,
     }
 })

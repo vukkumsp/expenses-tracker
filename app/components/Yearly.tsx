@@ -35,56 +35,56 @@ const Yearly: React.FC<CustomComponentProps> = ({year}) => {
     return (
     <View>
         <View style={styles.header}>
-            <Pressable onPress={()=>decreaseYear()}>
+            <Pressable onPress={()=>decreaseYear()} hitSlop={10}>
                 <LeftArrow />
             </Pressable>
             <View style={styles.year}>
-                <Text>{year}</Text>
+                <Text style={styles.yearText}>{year}</Text>
             </View>
-            <Pressable onPress={increaseYear}>
+            <Pressable onPress={increaseYear} hitSlop={10}>
                 <RightArrow />
             </Pressable>
         </View>
 
         <View style={styles.whole}>
             <View>
-                <Pressable style={styles.month} onPress={()=>onPressMonth(0)}>
-                    <Text>January</Text>
+                <Pressable style={styles.month} hitSlop={10} onPress={()=>onPressMonth(0)}>
+                    <Text style={styles.monthText}>January</Text>
                 </Pressable>
-                <Pressable style={styles.month} onPress={()=>onPressMonth(1)}>
-                    <Text>February</Text>
+                <Pressable style={styles.month} hitSlop={10} onPress={()=>onPressMonth(1)}>
+                    <Text style={styles.monthText}>February</Text>
                 </Pressable>
-                <Pressable style={styles.month} onPress={()=>onPressMonth(2)}>
-                    <Text>March</Text>
+                <Pressable style={styles.month} hitSlop={10} onPress={()=>onPressMonth(2)}>
+                    <Text style={styles.monthText}>March</Text>
                 </Pressable>
-                <Pressable style={styles.month} onPress={()=>onPressMonth(3)}>
-                    <Text>April</Text>
+                <Pressable style={styles.month} hitSlop={10} onPress={()=>onPressMonth(3)}>
+                    <Text style={styles.monthText}>April</Text>
                 </Pressable>
-                <Pressable style={styles.month} onPress={()=>onPressMonth(4)}>
-                    <Text>May</Text>
+                <Pressable style={styles.month} hitSlop={10} onPress={()=>onPressMonth(4)}>
+                    <Text style={styles.monthText}>May</Text>
                 </Pressable>
-                <Pressable style={styles.month} onPress={()=>onPressMonth(5)}>
-                    <Text>June</Text>
+                <Pressable style={styles.month} hitSlop={10} onPress={()=>onPressMonth(5)}>
+                    <Text style={styles.monthText}>June</Text>
                 </Pressable>
             </View>
             <View>
-                <Pressable style={styles.month} onPress={()=>onPressMonth(6)}>
-                    <Text>July</Text>
+                <Pressable style={styles.month} hitSlop={10} onPress={()=>onPressMonth(6)}>
+                    <Text style={styles.monthText}>July</Text>
                 </Pressable>
-                <Pressable style={styles.month} onPress={()=>onPressMonth(7)}>
-                    <Text>August</Text>
+                <Pressable style={styles.month} hitSlop={10} onPress={()=>onPressMonth(7)}>
+                    <Text style={styles.monthText}>August</Text>
                 </Pressable>
-                <Pressable style={styles.month} onPress={()=>onPressMonth(8)}>
-                    <Text>September</Text>
+                <Pressable style={styles.month} hitSlop={10} onPress={()=>onPressMonth(8)}>
+                    <Text style={styles.monthText}>September</Text>
                 </Pressable>
-                <Pressable style={styles.month} onPress={()=>onPressMonth(9)}>
-                    <Text>October</Text>
+                <Pressable style={styles.month} hitSlop={10} onPress={()=>onPressMonth(9)}>
+                    <Text style={styles.monthText}>October</Text>
                 </Pressable>
-                <Pressable style={styles.month} onPress={()=>onPressMonth(10)}>
-                    <Text>November</Text>
+                <Pressable style={styles.month} hitSlop={10} onPress={()=>onPressMonth(10)}>
+                    <Text style={styles.monthText}>November</Text>
                 </Pressable>
-                <Pressable style={styles.month} onPress={()=>onPressMonth(11)}>
-                    <Text>December</Text>
+                <Pressable style={styles.month} hitSlop={10} onPress={()=>onPressMonth(11)}>
+                    <Text style={styles.monthText}>December</Text>
                 </Pressable>
             </View>
         </View>
@@ -97,17 +97,19 @@ export default Yearly;
 const styles = StyleSheet.create({
     header:{
         flexDirection: 'row',
-        justifyContent: 'space-around',
-        paddingLeft: 5,
-        paddingRight: 5,
+        justifyContent: 'space-between',
+        paddingLeft: 15,
+        paddingRight: 15,
         paddingBottom: 5,
     },
     year:{
-        width: '80%',
         textAlign: 'center',
         flexDirection: 'row',
         justifyContent: 'center',
         paddingBottom: 15,
+    },
+    yearText:{
+        fontSize: 30,
     },
     whole:{
         display: 'flex',
@@ -118,12 +120,15 @@ const styles = StyleSheet.create({
         paddingRight: 15,
     },
     month:{
-        padding: 10,
-        // paddingRight: 40,
-        // paddingLeft: 40,
+        padding: 25,
+        paddingLeft: 35,
+        paddingRight: 35,
         borderWidth: 1,
         borderRadius: 5,
         borderColor: 'gray',
         marginBottom: 5,
     },
+    monthText: {
+        fontSize: 25
+    }
 })

@@ -31,10 +31,10 @@ const DayItem: React.FC<CustomComponentProps> = ({item}) => {
   return (
       <View key={item.id} style={styles.itemView}>
         <View>
-            <Text>
+            <Text style={{fontSize: 20}}>
                 {item.name}
             </Text>
-            <Text style={{fontSize: 10, color: 'gray'}}>
+            <Text style={{fontSize: 15, color: 'gray'}}>
                 {item.description}
             </Text>
         </View>
@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
     itemView:{
         display: 'flex',
         flexDirection: 'row',
-        
         borderWidth: 1,
         padding: 10,
         margin: 5,
@@ -65,9 +64,11 @@ const styles = StyleSheet.create({
     creditExpense:{
         color: 'green',
         alignSelf: 'flex-end',
+        fontSize: 15,
     },
     debitExpense:{
         color: 'red',
         alignSelf: 'flex-end',
+        fontSize: 15,
     }
 });

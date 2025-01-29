@@ -3,7 +3,7 @@ import { Button, FlatList, Modal, Pressable, ScrollView, StyleSheet, Text, TextI
 import { useEffect, useRef, useState } from "react";
 import Expense from "@/app/database/Expense";
 import DayItem, { CD, Item } from "@/app/components/DayItem";
-import ItemModal from "@/app/components/ItemModal";
+import ExpenseModal from "@/app/components/ExpenseModal";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
 import { getMonth, getWeekDay, isEqualToDate } from "@/app/utils/DateUtils";
@@ -39,13 +39,14 @@ export default function Day() {
   const flatListRef: any = useRef(null);
   const [expList, setExpList] = useState(
     [readExpensesGivenDate(conn, selectedDate)]
-    
   );
 
   const [itemName, setItemName] = useState('');
   const [itemDescription, setItemDescription] = useState('');
   const [creditOrDebit, setCreditOrDebit] = useState(CD.CREDIT);
-  const [expense, setExpense] = useState(0);
+  // const [expense, setExpense] = useState(0);
+
+  const [expense, setExpense] = useState<Expense|null>(null);
 
   const [isModalVisible, setModalVisible] = useState(false);
   const toggleModal = () => {
@@ -66,10 +67,10 @@ export default function Day() {
 
   },[]);
 
-  const addItem = () => {
-    let newExpense = new Expense(1, itemName, itemDescription, expense, CD.CREDIT, selectedDate.getDate(), selectedDate.getMonth(), selectedDate.getFullYear());
-    if(itemName && itemName.length>0 
-        && itemDescription && itemDescription.length>0){
+  const addItem = (newExpense: Expense) => {
+    console.log(newExpense)
+    // let newExpense = new Expense(1, itemName, itemDescription, expense, CD.CREDIT, selectedDate.getDate(), selectedDate.getMonth(), selectedDate.getFullYear());
+    if(newExpense && newExpense.isValid()){
           setExpList(
             [...expList, 
               newExpense
@@ -77,6 +78,7 @@ export default function Day() {
             ]);
       
       addExpense(conn, newExpense);
+      
 
       // setItemName('');//clear state
       // setItemDescription('');//clear state
@@ -108,7 +110,7 @@ export default function Day() {
   const expensesLabel = () => {
     let today = new Date();
 
-    return (<Text>
+    return (<Text style={{fontSize: 30}}>
       {isEqualToDate(today, selectedDate)?
         "Today's ":
         selectedDate.getDate().toString()+" "
@@ -135,7 +137,8 @@ export default function Day() {
       />
       <View style={styles.addButton}>
         <Pressable 
-          onPress={intiateAddItem}>
+          onPress={intiateAddItem}
+          hitSlop={10}>
           <AddIcon />
         </Pressable>
       </View>
@@ -144,17 +147,20 @@ export default function Day() {
       <Link style={styles.linkStyle} href="./settings">Settings</Link>
       <Link style={styles.linkStyle} href="./tracking-views">Views Home</Link> */}
 
-      <ItemModal 
-          itemName={itemName} 
-          setItemName={setItemName}
-          itemDescription={itemDescription}
-          setItemDescription={setItemDescription}
-          creditOrDebit={creditOrDebit}
-          setCreditOrDebit={setCreditOrDebit}
-          expense={expense}
-          setExpense={setExpense}
+      <ExpenseModal 
+          // itemName={itemName} 
+          // setItemName={setItemName}
+          // itemDescription={itemDescription}
+          // setItemDescription={setItemDescription}
+          // creditOrDebit={creditOrDebit}
+          // setCreditOrDebit={setCreditOrDebit}
+          // expense={expense}
+          // setExpense={setExpense}
 
-          addItem={addItem}
+          expense={expense}
+          date={selectedDate}
+          setExpense={setExpense}
+          addExpense={addItem}
           showModal={isModalVisible}
           toggleShowModal={toggleModal} />
     </ViewScreen>
