@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
         borderWidth: 0,
         borderRadius: 12, 
         // borderColor: 'transparent',
-        backgroundColor: '#f2f2f2',
+        // backgroundColor: '#f2f2f2',
         marginBottom: 5,
     },
     monthText: {
