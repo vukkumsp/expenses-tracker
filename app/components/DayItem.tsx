@@ -2,19 +2,21 @@ import { useNavigation } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import Expense from "../database/Expense";
 import { DeleteIcon, EditIcon } from "../utils/IconComponents";
+import React, { useState } from "react";
+import ExpenseModal from "./ExpenseModal";
 
 export enum CD {
-    CREDIT='CREDIT', DEBIT='DEBIT'
+    CREDIT = 'CREDIT', DEBIT = 'DEBIT'
 }
 
-export class Item{
+export class Item {
     id: string;
     name: string;
     description: string;
-    cd: CD; 
+    cd: CD;
     expense: number;
 
-    constructor(id: string, name: string, description: string, cd: CD, expense: number){
+    constructor(id: string, name: string, description: string, cd: CD, expense: number) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -27,42 +29,56 @@ interface CustomComponentProps {
     item: Expense;
 }
 
-const DayItem: React.FC<CustomComponentProps> = ({item}) => {
+const DayItem: React.FC<CustomComponentProps> = ({ item }) => {
     const navigation = useNavigation();
-  return (
-      <View key={item.id} style={styles.itemView}>
-      {/* <View > */}
-        <View>
-            <Text style={{fontSize: 20}}>
-                {item.name}
-            </Text>
-            <Text style={{fontSize: 15, color: 'gray'}}>
-                {item.description}
-            </Text>
-        </View>
-        <View style={styles.amtEditDelete}>
-            <Text style={item.cd==CD.CREDIT?styles.creditExpense:styles.debitExpense}>
-                {item.cd==CD.CREDIT?'+':'-'}
-                {item.amount}
-            </Text>
-            <Pressable>
-                <EditIcon size={30}/>
-            </Pressable>
-            <Pressable>
-                <DeleteIcon size={30}/>
-            </Pressable>
-        </View>
+    const [isModalVisible, setModalVisible] = useState(false);
+    const toggleModal = () => {
+        console.log(item);
+        setModalVisible(!isModalVisible);
+    };
+    
 
-      </View>
-
-      
+    return (
+        <>
+            <ExpenseModal
+                expense={item}
+                date={new Date(item.date, item.month, item.year)}
+                setExpense={item.amount}
+                addExpense={null}
+                showModal={isModalVisible}
+                toggleShowModal={toggleModal} />
+            <View key={item.id} style={styles.itemView}>
+                {/* <View > */}
+                <View>
+                    <Text style={{ fontSize: 20 }}>
+                        {item.name}
+                    </Text>
+                    <Text style={{ fontSize: 15, color: 'gray' }}>
+                        {item.description}
+                    </Text>
+                </View>
+                <View style={styles.amtEditDelete}>
+                    <Text style={item.cd == CD.CREDIT ? styles.creditExpense : styles.debitExpense}>
+                        {item.cd == CD.CREDIT ? '+' : '-'}
+                        {item.amount}
+                    </Text>
+                    {/* TODO: Add Edit and Delete options later */}
+                    {/* <Pressable onPress={toggleModal}>
+                        <EditIcon size={30}/>
+                    </Pressable>
+                    <Pressable>
+                        <DeleteIcon size={30} />
+                    </Pressable> */}
+                </View>
+            </View>
+        </>
     );
 }
 
 export default DayItem;
 
 const styles = StyleSheet.create({
-    itemView:{
+    itemView: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -72,15 +88,15 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         backgroundColor: '#f2f2f2',
     },
-    expense:{
+    expense: {
         alignSelf: 'flex-end',
     },
-    creditExpense:{
+    creditExpense: {
         color: '#33ff66',
         alignSelf: 'flex-end',
         fontSize: 25,
     },
-    debitExpense:{
+    debitExpense: {
         color: '#fc5353',
         alignSelf: 'flex-end',
         fontSize: 25,

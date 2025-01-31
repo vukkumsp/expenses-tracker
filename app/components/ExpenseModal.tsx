@@ -55,6 +55,13 @@ const ExpenseModal: React.FC<CustomComponentProps> = (
     }
   },[expenseName, expenseDescription, expenseAmount, expenseCD]);
 
+  const fillWithExistingExpense = () => {
+    setExpenseName(expense?.name??'');
+    setExpenseDescription(expense?.description??'');
+    setExpenseCD(expense?.cd??'');
+    setExpenseAmount(expense?.amount??'');
+  }
+  
   const clearAllStates = () => {
     setExpenseName('');
     setExpenseDescription('');
