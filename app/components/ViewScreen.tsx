@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   },
   bgImage: {
     position: "absolute",
-    bottom: -350,
+    bottom: -310,
     width: '100%',
     height: "100%", // Adjust the height of the background image
     // maxWidth: 'auto',
