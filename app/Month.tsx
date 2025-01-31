@@ -57,10 +57,10 @@ export default function Month() {
       <ViewScreen header="Monthly" footer={'Monthly Total is ₹'+monthTotal}>
         <Calendar
           theme={{
-            textMonthFontSize: 30,  // Adjust font size of month title
+            textMonthFontSize: 25,  // Adjust font size of month title
             // textMonthFontWeight: 'bold', // (Optional) Make it bold
             // monthTextColor: 'blue', // (Optional) Change color
-            calendarBackground: '#f2f2f2',
+            // calendarBackground: '#f2f2f2',
             stylesheet:{
               calendar:{
                 main:{
