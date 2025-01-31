@@ -101,7 +101,12 @@ const ExpenseModal: React.FC<CustomComponentProps> = (
                       style={styles.modelInput}
                       placeholder="Enter Expense Amount"
                       value={expenseAmount}
-                      onChangeText={setExpenseAmount}
+                      onChangeText={(text) => {
+                        if (/^\d*\.?\d*$/.test(text)) {
+                          setExpenseAmount(text);
+                        }
+                      }}
+                      keyboardType="numeric"
                     />
         {/* onPress={()=>{addExpense(expense)}} */}
                     <View style={styles.modelButtonGroup}>
