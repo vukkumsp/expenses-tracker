@@ -1,0 +1,10 @@
+Use Git Bash Terminal for all below commands::
+==============================================
+
+We use Expo Pipeline to build APK:
+----------------------------------
+eas build --platform android --profile preview
+
+To build AAB build for production:
+----------------------------------
+eas build --platform android --profile production
