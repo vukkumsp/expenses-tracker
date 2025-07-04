@@ -1,4 +1,7 @@
-# Welcome to your Expo app 👋
+# Expenses Tracker 👋
+(named as Xpense Tracker)
+
+![Expo Build](https://img.shields.io/badge/Expo_Build-passing-brightgreen)
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
