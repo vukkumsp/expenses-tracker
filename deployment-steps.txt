@@ -1,6 +1,18 @@
 Use Git Bash Terminal for all below commands::
 ==============================================
 
+To Change the API version of generated app
+------------------------------------------
+npx expo prebuild
+
+Then update the file in the generated ./android/gradle.properties with following lines:
+
+android.targetSdkVersion=35
+android.compileSdkVersion=35
+android.buildToolsVersion=35.0.0
+
+Then, follow below to use this new updated app in workflow.
+
 We use Expo Pipeline to build APK:
 ----------------------------------
 eas build --platform android --profile preview
