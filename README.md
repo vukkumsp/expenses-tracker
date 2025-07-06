@@ -10,3 +10,6 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 
 ## APK Build for Android is available here: (Soon will be available on Google Playstore)
 https://github.com/vukkumsp/expenses-tracker/blob/master/build/Xpense%20Tracker.apk
+
+### Privacy Policy
+https://vukkumsp.github.io/expenses-tracker/
